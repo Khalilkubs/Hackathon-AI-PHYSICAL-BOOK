@@ -1,8 +1,5 @@
 {
   "framework": "docusaurus",
-  "settings": {
-    "nodeVersion": "18.x"
-  },
   "rewrites": [
     {
       "source": "/(.*)",
