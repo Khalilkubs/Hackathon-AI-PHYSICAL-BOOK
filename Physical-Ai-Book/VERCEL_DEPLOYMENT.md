@@ -26,8 +26,8 @@ This is a Docusaurus-based documentation website focused on Physical AI & Humano
 
 3. **Configure the project**
    - Framework Preset: Auto-detected (Docusaurus)
-   - Build Command: `npm run build`
-   - Output Directory: `build`
+   - Build Command: Auto-detected
+   - Output Directory: build (auto-detected)
    - Root Directory: `Physical-Ai-Book`
    - Environment Variables (optional):
      - NODE_VERSION: `18.x` or `20.x`
