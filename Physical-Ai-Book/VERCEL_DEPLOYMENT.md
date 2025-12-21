@@ -30,7 +30,7 @@ This is a Docusaurus-based documentation website focused on Physical AI & Humano
    - Output Directory: `build`
    - Root Directory: `Physical-Ai-Book`
    - Environment Variables (optional):
-     - NODE_VERSION: `20`
+     - NODE_VERSION: `18.x` or `20.x`
 
 4. **Deploy**
    - Click "Deploy" to start the deployment process
