@@ -1,7 +1,21 @@
 {
-  "build": {
-    "env": {
-      "NODE_VERSION": "20"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "framework": "docusaurus",
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "devCommand": "npm run start"
 }

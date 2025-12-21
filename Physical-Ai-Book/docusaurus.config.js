@@ -8,14 +8,22 @@ const darkCodeTheme = themes.dracula;
 (module.exports = {
   title: 'Physical AI & Humanoid Robotics Book',
   tagline: 'Embodied Artificial Intelligence Systems',
-  url: 'https://khalilkubs.github.io', // GitHub Pages URL
-  baseUrl: '/Hackathon-AI-PHYSICAL-BOOK/', // Repository name
+  url: 'https://your-vercel-project-url.vercel.app', // Replace with your actual Vercel URL after deployment
+  baseUrl: '/', // Root path for Vercel deployment (change to '/Hackathon-AI-PHYSICAL-BOOK/' for GitHub Pages)
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    mermaid: false,
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
+  },
   favicon: 'img/favicon.ico',
   organizationName: 'Khalilkubs', // Your GitHub username
-  projectName: 'Hackathon-AI-PHYSICAL-BOOK', // Repository name
-  trailingSlash: false, // Recommended for GitHub Pages
+  projectName: 'Hackathon-AI-PHYSICAL-BOOK', // Your repo name
+  trailingSlash: false,
 
   presets: [
     [
