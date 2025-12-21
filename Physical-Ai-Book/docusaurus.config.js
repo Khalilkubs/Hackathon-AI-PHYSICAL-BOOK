@@ -8,13 +8,13 @@ const darkCodeTheme = themes.dracula;
 (module.exports = {
   title: 'Physical AI & Humanoid Robotics Book',
   tagline: 'Embodied Artificial Intelligence Systems',
-  url: 'https://your-github-username.github.io', // Replace with your GitHub Pages URL
-  baseUrl: '/Hackathon-AI-PHYSICAL-BOOK/', // Replace with your repository name
+  url: 'https://khalilkubs.github.io', // GitHub Pages URL
+  baseUrl: '/Hackathon-AI-PHYSICAL-BOOK/', // Repository name
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'your-github-username', // Replace with your GitHub username/organization
-  projectName: 'Hackathon-AI-PHYSICAL-BOOK', // Replace with your repository name
+  organizationName: 'Khalilkubs', // Your GitHub username
+  projectName: 'Hackathon-AI-PHYSICAL-BOOK', // Repository name
   trailingSlash: false, // Recommended for GitHub Pages
 
   presets: [
@@ -24,12 +24,11 @@ const darkCodeTheme = themes.dracula;
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+          editUrl: 'https://github.com/Khalilkubs/Hackathon-AI-PHYSICAL-BOOK/edit/001-book-structure/Physical-Ai-Book/',
         },
         blog: {
           showReadingTime: true,
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/main/website/blog/',
+          editUrl: 'https://github.com/Khalilkubs/Hackathon-AI-PHYSICAL-BOOK/edit/001-book-structure/Physical-Ai-Book/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -57,7 +56,7 @@ const darkCodeTheme = themes.dracula;
           { type: 'doc', docId: 'module-1/intro', position: 'left', label: 'Modules' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/your-organization/physical-ai-book',
+            href: 'https://github.com/Khalilkubs/Hackathon-AI-PHYSICAL-BOOK',
             label: 'GitHub',
             position: 'right',
           },
@@ -80,15 +79,17 @@ const darkCodeTheme = themes.dracula;
             title: 'Resources',
             items: [
               { label: 'Docusaurus', href: 'https://docusaurus.io' },
-              { label: 'Physical AI Community', href: 'https://example.com/physical-ai-community' },
-              { label: 'GitHub', href: 'https://github.com/your-organization/physical-ai-book' },
+              // Remove or replace with your real community link
+              // { label: 'Physical AI Community', href: 'https://example.com/physical-ai-community' },
+              { label: 'GitHub', href: 'https://github.com/Khalilkubs/Hackathon-AI-PHYSICAL-BOOK' },
             ],
           },
           {
             title: 'Legal',
             items: [
-              { label: 'Privacy Policy', href: '/privacy' },
-              { label: 'Terms of Service', href: '/terms' },
+              // Make sure these pages exist or remove
+              // { label: 'Privacy Policy', href: '/privacy' },
+              // { label: 'Terms of Service', href: '/terms' },
             ],
           },
         ],
