@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 4.2: Advanced VLA Applications",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Explore advanced applications of Vision-Language-Action models, including deployment strategies, optimization techniques, and real-world implementation considerations."
+  }
+}

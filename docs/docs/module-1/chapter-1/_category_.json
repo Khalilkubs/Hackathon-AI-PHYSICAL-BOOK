@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 1.1: Introduction to ROS 2 Architecture",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Introduction to ROS 2 architecture including nodes, topics, services, actions, and workspace organization."
+  }
+}

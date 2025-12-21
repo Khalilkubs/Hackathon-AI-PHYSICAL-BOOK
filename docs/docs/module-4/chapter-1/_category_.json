@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 4.1: VLA Fundamentals",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn the fundamentals of Vision-Language-Action models, including RT-1, BC-Z, and open-source frameworks."
+  }
+}

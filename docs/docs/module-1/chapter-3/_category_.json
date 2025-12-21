@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 1.3: ROS 2 Tools and Ecosystem",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "ROS 2 command line tools, rviz, launch files, testing, and debugging."
+  }
+}

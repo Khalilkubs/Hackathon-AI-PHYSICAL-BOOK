@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 4.3: VLA Evaluation and Ethics",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about evaluation metrics, ethical considerations, and responsible deployment of Vision-Language-Action models in robotics applications."
+  }
+}

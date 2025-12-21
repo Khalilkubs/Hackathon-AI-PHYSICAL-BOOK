@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx @docusaurus/init@latest init docs classic)",
+      "Bash(npm install --save-dev axe-core)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\" /B)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\module-4\\\\chapter-1\" /B)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\module-4\\\\chapter-3\" /B)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\" /B)",
+      "Bash(npx docusaurus start:*)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\src\" /B)"
+    ]
+  }
+}
