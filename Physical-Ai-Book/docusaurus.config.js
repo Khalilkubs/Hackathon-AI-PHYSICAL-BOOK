@@ -7,7 +7,7 @@ const darkCodeTheme = themes.dracula;
 (module.exports = {
   title: 'Physical AI & Humanoid Robotics Book',
   tagline: 'Embodied Artificial Intelligence Systems',
-  url: 'https://hackathon-ai-physical-book.vercel.app', // Replace with your Vercel URL
+  url: 'https://hackathon-ai-physical-book-1ojs.vercel.app', // Replace with your Vercel URL
   baseUrl: '/', // Root path for Vercel
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
