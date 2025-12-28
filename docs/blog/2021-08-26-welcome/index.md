@@ -1,25 +1,23 @@
 ---
 slug: welcome
-title: Welcome
-authors: [slorber, yangshun]
-tags: [facebook, hello, docusaurus]
+title: Welcome to Physical AI & Humanoid Robotics Blog
+authors: [khalil]
+tags: [physical-ai, robotics, humanoid, docusaurus]
 ---
 
-[Docusaurus blogging features](https://docusaurus.io/docs/blog) are powered by the [blog plugin](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog).
+[Physical AI & Humanoid Robotics content](https://hackathon-ai-physical-book-suv4.vercel.app/) is powered by the [Docusaurus platform](https://docusaurus.io/), featuring comprehensive modules on ROS 2, Gazebo/Union simulation, NVIDIA Isaac platform, and Vision-Language-Action (VLA) models.
 
-Simply add Markdown files (or folders) to the `blog` directory.
+This blog explores the cutting-edge intersection of artificial intelligence and robotics, focusing on embodied systems that interact with the physical world. Our content covers both theoretical foundations and practical implementations.
 
-Regular blog authors can be added to `authors.yml`.
+<!--truncate-->
 
-The blog post date can be extracted from filenames, such as:
+Key topics include:
 
-- `2019-05-30-welcome.md`
-- `2019-05-30-welcome/index.md`
+- **Module 1**: ROS 2 Fundamentals and Architecture
+- **Module 2**: Gazebo/Unity Simulation Environments
+- **Module 3**: NVIDIA Isaac Platform Integration
+- **Module 4**: Vision-Language-Action (VLA) Models for Robotics
 
-A blog post folder can be convenient to co-locate blog post images:
+The blog supports rich media and interactive content relevant to robotics applications!
 
-![Docusaurus Plushie](./docusaurus-plushie-banner.jpeg)
-
-The blog supports tags as well!
-
-**And if you don't want a blog**: just delete this directory, and use `blog: false` in your Docusaurus config.
+**Continue exploring**: Visit our [comprehensive guide](https://hackathon-ai-physical-book-suv4.vercel.app/) to dive deeper into Physical AI concepts.

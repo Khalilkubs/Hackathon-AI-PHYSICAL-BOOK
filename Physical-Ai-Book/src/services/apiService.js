@@ -4,7 +4,7 @@ import axios from 'axios';
 class ApiService {
   constructor() {
     // Use the same base URL as the existing API endpoints
-    this.baseURL = 'http://127.0.0.1:8000'; // Default to local development server
+    this.baseURL = 'http://127.0.0.1:8001'; // Default to local development server on port 8001
     this.apiClient = axios.create({
       baseURL: this.baseURL,
       timeout: 30000, // 30 second timeout

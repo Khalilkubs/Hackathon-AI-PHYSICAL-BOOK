@@ -1,20 +1,29 @@
 ---
 slug: mdx-blog-post
-title: MDX Blog Post
-authors: [slorber]
-tags: [docusaurus]
+title: Exploring ROS 2 Architecture with Physical AI
+authors: [khalil]
+tags: [physical-ai, ros2, robotics, docusaurus]
 ---
 
-Blog posts support [Docusaurus Markdown features](https://docusaurus.io/docs/markdown-features), such as [MDX](https://mdxjs.com/).
+Physical AI systems rely heavily on robust communication architectures. In this post, we'll explore the Robot Operating System (ROS) 2 architecture and how it enables complex humanoid robotics applications.
+
+ROS 2 provides the foundation for distributed robotics applications with its DDS-based communication layer. This enables:
+
+- **Decentralized Architecture**: Nodes can be distributed across multiple machines
+- **Real-time Capabilities**: Critical for humanoid robot control
+- **Security Features**: Essential for deployment in real-world environments
 
 :::tip
 
-Use the power of React to create interactive blog posts.
+Physical AI systems require tight integration between perception, reasoning, and action. ROS 2's communication patterns facilitate this integration.
 
 ```js
-<button onClick={() => alert('button clicked!')}>Click me!</button>
+// Example ROS 2 node for sensor data processing
+const sensorDataProcessor = () => {
+  console.log('Processing sensor data for Physical AI system...');
+};
 ```
 
-<button onClick={() => alert('button clicked!')}>Click me!</button>
+<button onClick={() => alert('Physical AI sensor processing initiated!')}>Process Sensor Data</button>
 
 :::

@@ -24,7 +24,8 @@
       "Bash(timeout 30s python agent.py --test-mode)",
       "Bash(powershell -Command \".specify/scripts/powershell/create-new-feature.ps1 -Json ''i want to display chatbot UI across the frontend but there is no chatbot UI showing'' -Number 1 -ShortName ''chatbot-ui-integration''\")",
       "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\specs\\\\001-chatbot-ui-integration\\\\checklists\" /B)",
-      "Bash(npm install axios)"
+      "Bash(npm install axios)",
+      "Bash(powershell Get-Content \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\K--Personal-IT-HACKATHON-1-QTR-4-Hackathon-AI-PHYSICAL-BOOK\\\\tasks\\\\b1f2c09.output\")"
     ]
   }
 }
