@@ -1,0 +1,3 @@
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/intro
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-1/intro

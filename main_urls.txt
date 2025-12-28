@@ -1,0 +1,8 @@
+https://hackathon-ai-physical-book-1ojs.vercel.app
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/intro
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-1/intro
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-1/chapter-1/lesson-1
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-2/intro
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-3/intro
+https://hackathon-ai-physical-book-1ojs.vercel.app/docs/module-4/intro

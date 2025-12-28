@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Frontend RAG Integration API
+  description: API for integrating RAG system with frontend applications
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+paths:
+  /query:
+    post:
+      summary: Process a user query against the RAG system
+      description: Accepts a user query and returns a response from the RAG agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Successful response from the RAG agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+components:
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - query_text
+      properties:
+        query_text:
+          type: string
+          description: The user's query text
+          example: "What are the fundamentals of ROS 2?"
+        user_id:
+          type: string
+          description: Optional user identifier
+          example: "user_123"
+        session_id:
+          type: string
+          description: Optional session identifier
+          example: "session_456"
+    QueryResponse:
+      type: object
+      required:
+        - response_text
+        - query
+        - timestamp
+      properties:
+        response_text:
+          type: string
+          description: The agent's response to the query
+          example: "The fundamentals of ROS 2 include..."
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              url:
+                type: string
+          description: List of sources used to generate the response
+        confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Confidence score of the response
+          example: 0.85
+        query:
+          type: string
+          description: The original query that generated this response
+          example: "What are the fundamentals of ROS 2?"
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the response
+          example: "2025-12-28T00:30:00Z"
+        retrieved_chunks:
+          type: array
+          items:
+            type: object
+            properties:
+              content:
+                type: string
+              source_url:
+                type: string
+              similarity_score:
+                type: number
+                format: float
+          description: Raw retrieved chunks used for the response
+    APIError:
+      type: object
+      required:
+        - error_code
+        - message
+        - timestamp
+      properties:
+        error_code:
+          type: string
+          description: Error code identifier
+          example: "QUERY_EMPTY"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Query text cannot be empty"
+        details:
+          type: object
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the error
+          example: "2025-12-28T00:30:00Z"

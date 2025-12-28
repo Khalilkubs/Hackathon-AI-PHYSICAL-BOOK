@@ -7,6 +7,7 @@ This repository contains a comprehensive textbook on Physical AI & Humanoid Robo
 - **Complete Curriculum**: 13-week curriculum covering ROS 2, Gazebo/Unity, NVIDIA Isaac, and Vision-Language-Action (VLA) models
 - **Interactive Documentation**: Built with Docusaurus for an excellent reading experience
 - **RAG Chatbot**: Retrieval-Augmented Generation system for intelligent Q&A about the textbook content
+- **AI Assistant Integration**: Embedded chatbot accessible across all pages for immediate help with book content
 - **GitHub Pages Deployment**: Automatically deployed website for easy access
 
 ## Repository Structure
@@ -15,6 +16,7 @@ This repository contains a comprehensive textbook on Physical AI & Humanoid Robo
 - `Physical-Ai-Book/` - Docusaurus project for the textbook website
 - `scripts/` - Utility scripts for RAG system and deployment
 - `.github/workflows/` - GitHub Actions for automated deployment
+- `src/` - Source code for frontend components including chatbot UI
 
 ## Components
 
@@ -31,7 +33,14 @@ This repository contains a comprehensive textbook on Physical AI & Humanoid Robo
 - Semantic search capabilities
 - Docker-based deployment
 
-### 3. GitHub Pages Deployment
+### 3. Frontend Chatbot Integration
+- React-based chatbot widget
+- Docusaurus theme integration for universal access
+- Session persistence across page navigation
+- Responsive design for all devices
+- Accessibility features (keyboard navigation, screen reader support)
+
+### 4. GitHub Pages Deployment
 - Automated deployment via GitHub Actions
 - Docusaurus-optimized configuration
 - Custom domain support
@@ -47,6 +56,12 @@ This repository contains a comprehensive textbook on Physical AI & Humanoid Robo
 1. Ensure Docker and Docker Compose are installed
 2. Run: `./scripts/start_rag_system.sh`
 3. API will be available at `http://localhost:8000`
+
+### For the Frontend Chatbot Integration
+1. The chatbot is automatically integrated into all pages via Docusaurus theme override
+2. Access the chatbot by clicking the icon in the bottom-right corner of any page
+3. Ask questions about the book content and receive responses from the RAG system
+4. Chat sessions persist across page navigation and browser sessions
 
 ### For GitHub Pages Deployment
 The site is automatically deployed when changes are pushed to the main branch.

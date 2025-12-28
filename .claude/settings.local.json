@@ -8,7 +8,23 @@
       "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\module-4\\\\chapter-3\" /B)",
       "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\" /B)",
       "Bash(npx docusaurus start:*)",
-      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\src\" /B)"
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\docs\\\\docs\\\\src\" /B)",
+      "Bash(mkdir -p specs/001-book-embeddings)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\history\\\\prompts\\\\general\" /B)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\history\\\\prompts\" /AD)",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\history\\\\prompts\\\\book-embeddings\" /B)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(dir /s /b *.py)",
+      "Bash(findstr -i \"main\\\\|start\\\\|run\")",
+      "Bash(cmd /c \"dir /s /b *.py | findstr /i \"\"main\\\\|start\\\\|run\"\"\")",
+      "Bash(powershell -Command \"Get-ChildItem -Path . -Recurse -Include *.py | Where-Object { $_Name -match ''main|start|run'' } | Select-Object FullName\")",
+      "Bash(dir src* /b)",
+      "Bash(python test_retrieval_system.py)",
+      "Bash(python agent.py --test-mode)",
+      "Bash(timeout 30s python agent.py --test-mode)",
+      "Bash(powershell -Command \".specify/scripts/powershell/create-new-feature.ps1 -Json ''i want to display chatbot UI across the frontend but there is no chatbot UI showing'' -Number 1 -ShortName ''chatbot-ui-integration''\")",
+      "Bash(dir \"K:\\\\Personal\\\\IT\\\\HACKATHON 1 QTR 4\\\\Hackathon-AI-PHYSICAL-BOOK\\\\specs\\\\001-chatbot-ui-integration\\\\checklists\" /B)",
+      "Bash(npm install axios)"
     ]
   }
 }

@@ -1,0 +1,226 @@
+# OpenAPI Specification for Document Ingestion and Vector Storage System
+
+openapi: 3.0.0
+info:
+  title: Document Ingestion and Vector Storage API
+  description: API for ingesting documents, generating embeddings, and storing in vector database
+  version: 1.0.0
+
+paths:
+  /ingest:
+    post:
+      summary: Ingest a document from URL and store embeddings
+      description: Fetches content from the provided URL, processes it, generates embeddings, and stores them in the vector database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: The Docusaurus URL to ingest
+                  example: "https://example-docs.vercel.app/introduction"
+                options:
+                  type: object
+                  properties:
+                    chunk_size:
+                      type: integer
+                      description: Maximum size of text chunks (default: 512)
+                      default: 512
+                    chunk_overlap:
+                      type: integer
+                      description: Overlap between consecutive chunks (default: 50)
+                      default: 50
+      responses:
+        '200':
+          description: Document successfully ingested and embeddings stored
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [success, partial, failed]
+                  document_id:
+                    type: string
+                    description: Unique identifier for the ingested document
+                  chunks_processed:
+                    type: integer
+                    description: Number of text chunks processed
+                  embeddings_stored:
+                    type: integer
+                    description: Number of embeddings successfully stored
+                  message:
+                    type: string
+                    description: Additional information about the processing
+        '400':
+          description: Invalid input parameters
+        '404':
+          description: URL not found or inaccessible
+        '500':
+          description: Internal server error during processing
+
+  /search:
+    post:
+      summary: Search for relevant content using vector similarity
+      description: Performs vector similarity search against stored embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  description: The search query text
+                  example: "How to configure authentication"
+                top_k:
+                  type: integer
+                  description: Number of results to return (default: 5)
+                  default: 5
+                filters:
+                  type: object
+                  description: Optional filters for search
+                  properties:
+                    source_url:
+                      type: string
+                      description: Filter results by source URL
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chunk_id:
+                          type: string
+                          description: Unique identifier of the matching chunk
+                        similarity_score:
+                          type: number
+                          format: float
+                          description: Cosine similarity score between 0 and 1
+                        content:
+                          type: string
+                          description: The text content of the matching chunk
+                        source_url:
+                          type: string
+                          description: URL of the source document
+                        document_title:
+                          type: string
+                          description: Title of the source document
+                        chunk_index:
+                          type: integer
+                          description: Position of chunk in original document
+        '400':
+          description: Invalid search parameters
+        '500':
+          description: Internal server error during search
+
+  /status:
+    get:
+      summary: Get system status and statistics
+      description: Returns the current status of the ingestion system and processing statistics
+      responses:
+        '200':
+          description: System status information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy, degraded, error]
+                  total_documents:
+                    type: integer
+                    description: Total number of documents processed
+                  total_embeddings:
+                    type: integer
+                    description: Total number of embeddings stored
+                  last_processed:
+                    type: string
+                    format: date-time
+                    description: Timestamp of last processed document
+                  processing_queue:
+                    type: integer
+                    description: Number of documents in processing queue
+
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the document
+        url:
+          type: string
+          format: uri
+          description: Source URL of the document
+        title:
+          type: string
+          description: Document title extracted from HTML
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of ingestion
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp of last update
+
+    TextChunk:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the text chunk
+        document_id:
+          type: string
+          description: Reference to the source document
+        content:
+          type: string
+          description: Chunked text content
+        chunk_index:
+          type: integer
+          description: Sequential position in document
+        token_count:
+          type: integer
+          description: Number of tokens in chunk
+
+    Embedding:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the embedding
+        chunk_id:
+          type: string
+          description: Reference to the source text chunk
+        vector:
+          type: array
+          items:
+            type: number
+            format: float
+          description: The embedding vector (1024-dimensional)
+          minItems: 1024
+          maxItems: 1024
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of embedding generation

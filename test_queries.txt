@@ -1,0 +1,5 @@
+What is Physical AI?
+How does embodied intelligence work?
+What are the core principles of robotics?
+Explain sensor integration in AI systems.
+How do actuators function in physical systems?

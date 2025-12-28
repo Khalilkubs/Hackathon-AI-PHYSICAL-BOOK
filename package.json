@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@docusaurus/core": "^3.9.2",
-    "@docusaurus/preset-classic": "^3.9.2"
+    "@docusaurus/preset-classic": "^3.9.2",
+    "axios": "^1.13.2",
+    "react-scripts": "^5.0.1"
   },
   "description": "",
   "devDependencies": {
