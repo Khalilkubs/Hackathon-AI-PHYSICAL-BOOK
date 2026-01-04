@@ -91,9 +91,15 @@ const ChatbotWidget = () => {
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    // Use setTimeout to ensure the DOM has updated before scrolling
+    const timer = setTimeout(() => {
+      if (messagesEndRef.current) {
+        // Use instant scroll instead of smooth to ensure it always scrolls to bottom
+        messagesEndRef.current.scrollIntoView({ behavior: "instant", block: "end" });
+      }
+    }, 10); // Small delay to ensure DOM is updated
+
+    return () => clearTimeout(timer);
   }, [messages, isLoading]);
 
   return (
@@ -154,7 +160,10 @@ const ChatbotWidget = () => {
           }}
         >
           <div className="chatbot-header">
-            <div className="chatbot-title" aria-live="polite">AI Assistant</div>
+            <div className="chatbot-title" aria-live="polite">
+              <div>AI Assistant</div>
+              <div style={{ fontSize: '10px', opacity: 0.8 }}>Author: Khalil ur rehman</div>
+            </div>
             <div className="chatbot-actions">
               <button
                 className="chatbot-minimize-button"

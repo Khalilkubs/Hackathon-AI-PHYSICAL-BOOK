@@ -1,0 +1,8 @@
+streamlit
+qdrant-client
+cohere
+python-dotenv
+requests
+beautifulsoup4
+selenium
+webdriver-manager
