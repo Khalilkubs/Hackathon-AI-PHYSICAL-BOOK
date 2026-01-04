@@ -78,8 +78,14 @@ const darkCodeTheme = themes.dracula;
             { label: 'GitHub', href: 'https://github.com/Khalilkubs/Hackathon-AI-PHYSICAL-BOOK' },
           ],
         },
+        {
+          title: 'Author',
+          items: [
+            { label: 'Khalil ur rehman', href: '#' },
+          ],
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Book. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Book. Author: Khalil ur rehman. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,

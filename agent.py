@@ -30,7 +30,7 @@ openai.tracing = False
 # Import required libraries
 try:
     from agents import Agent, Runner, function_tool
-    import cohere
+    import openai
     from qdrant_client import QdrantClient
     from dotenv import load_dotenv
 except ImportError as e:
@@ -233,44 +233,119 @@ class QdrantConnector:
             return []
 
 
-class QueryEmbedder:
-    """Implements query embedding generation using Cohere API"""
+import time
+import random
 
-    def __init__(self, api_key: str, model: str = "embed-multilingual-v2.0"):
+class QueryEmbedder:
+    """Implements query embedding generation using OpenAI API"""
+
+    def __init__(self, api_key: str, model: str = "text-embedding-3-small", max_retries: int = 3, base_delay: float = 1.0):
         """
         Initialize the query embedder
-        Uses embed-multilingual-v2.0 which produces 1024-dimensional vectors to match existing embeddings
+        Uses text-embedding-3-small which produces 1536-dimensional vectors to match existing embeddings
         """
-        self.client = cohere.Client(api_key)
+        self.api_key = api_key
+        # Check if it's an OpenRouter key (starts with "sk-or-")
+        if api_key.startswith("sk-or-"):
+            # Use OpenRouter's API endpoint with a separate client to avoid conflicts
+            from openai import OpenAI
+            self.client = OpenAI(
+                api_key=api_key,
+                base_url="https://openrouter.ai/api/v1"  # Use OpenRouter's API endpoint
+            )
+        else:
+            from openai import OpenAI
+            self.client = OpenAI(api_key=api_key)
+
         self.model = model
+        self.max_retries = max_retries
+        self.base_delay = base_delay  # Base delay in seconds for exponential backoff
+
+    def _exponential_backoff_delay(self, attempt: int) -> float:
+        """Calculate delay with exponential backoff and jitter"""
+        delay = self.base_delay * (2 ** attempt)  # Exponential backoff
+        jitter = random.uniform(0, delay * 0.1)  # Add up to 10% jitter
+        return delay + jitter
 
     def embed_query(self, query_text: str) -> Optional[List[float]]:
         """
-        Generate embedding for a query string
-        Uses 'search_query' input type for better retrieval performance
+        Generate embedding for a query string with retry logic
         """
-        try:
-            response = self.client.embed(
-                texts=[query_text],
-                model=self.model,
-                input_type="search_query"  # Appropriate for search queries
-            )
+        for attempt in range(self.max_retries + 1):
+            try:
+                response = self.client.embeddings.create(
+                    input=[query_text],
+                    model=self.model
+                )
 
-            if response.embeddings and len(response.embeddings) > 0:
-                embedding = response.embeddings[0]
-                logger.debug(f"Generated query embedding with {len(embedding)} dimensions")
-                return embedding
-            else:
-                logger.error("No embeddings returned from Cohere API for query")
-                return None
+                # Handle response based on whether it's OpenAI or OpenRouter format
+                if hasattr(response, 'data') and response.data and len(response.data) > 0:
+                    # Standard OpenAI format
+                    embedding = response.data[0].embedding
+                elif isinstance(response, dict) and 'data' in response and response['data']:
+                    # OpenRouter format (may return dict)
+                    embedding = response['data'][0]['embedding']
+                elif hasattr(response, '__dict__') and 'data' in response.__dict__:
+                    # Alternative object format
+                    data_list = response.data if isinstance(response.data, list) else getattr(response, 'data', [])
+                    if data_list:
+                        embedding = data_list[0].embedding if hasattr(data_list[0], 'embedding') else data_list[0]['embedding']
+                    else:
+                        logger.error("No embeddings returned from API for query")
+                        return None
+                else:
+                    logger.error("Unexpected response format from API")
+                    return None
 
-        except Exception as e:
-            error_msg = str(e)
-            if "401" in error_msg or "Unauthorized" in error_msg:
-                logger.error(f"Authentication error with Cohere API (check your API key): {e}")
-            else:
-                logger.error(f"Error when generating query embedding: {e}")
-            return None
+                if embedding and len(embedding) > 0:
+                    logger.debug(f"Generated query embedding with {len(embedding)} dimensions")
+                    return embedding
+                else:
+                    logger.error("No embeddings returned from API for query")
+                    return None
+
+            except Exception as e:
+                error_msg = str(e)
+                error_type = type(e).__name__
+
+                if attempt < self.max_retries:
+                    # Check if this is a retryable error (429, 5xx, network issues)
+                    is_retryable = ("rate_limit" in error_msg.lower() or
+                                  "429" in error_msg or
+                                  "Too Many Requests" in error_msg or
+                                  "50" in error_msg or  # 5xx server errors
+                                  "Connection" in error_msg or
+                                  "timeout" in error_msg.lower() or
+                                  "network" in error_msg.lower())
+
+                    if is_retryable:
+                        delay = self._exponential_backoff_delay(attempt)
+                        logger.warning(f"Attempt {attempt + 1} failed with {error_type}: {e}. Retrying in {delay:.2f}s...")
+                        time.sleep(delay)
+                        continue  # Retry
+                    else:
+                        # Non-retryable error, fail immediately
+                        logger.error(f"Non-retryable error with OpenAI API - {error_type}: {e}")
+                        logger.error(f"Full error details: {repr(e)}")
+                        return None
+                else:
+                    # Final attempt failed
+                    if "401" in error_msg or "Unauthorized" in error_msg:
+                        logger.error(f"Authentication error with OpenAI API (check your API key): {e}")
+                    elif "429" in error_msg or "Too Many Requests" in error_msg or "rate_limit" in error_msg.lower():
+                        logger.error(f"HTTP 429 error with OpenAI API - {error_type}: {e}")
+                        logger.error("This could be due to rate limiting, account restrictions, or other API issues.")
+                        logger.error("Please check your OpenAI account status, usage limits, and API key validity.")
+                    elif "403" in error_msg or "Forbidden" in error_msg:
+                        logger.error(f"HTTP 403 error with OpenAI API - {error_type}: {e}")
+                        logger.error("Access forbidden - check API key permissions and account status.")
+                    elif "400" in error_msg or "Bad Request" in error_msg:
+                        logger.error(f"HTTP 400 error with OpenAI API - {error_type}: {e}")
+                        logger.error("Bad request - check query format, model name, and input parameters.")
+                    else:
+                        logger.error(f"Error when generating query embedding - {error_type}: {e}")
+                        logger.error(f"Full error details: {repr(e)}")
+                    return None
 
 
 def retrieve_content_wrapper(query: str, top_k: int = 5, threshold: float = 0.5) -> Dict[str, Any]:
@@ -320,14 +395,14 @@ def retrieve_content_wrapper(query: str, top_k: int = 5, threshold: float = 0.5)
     try:
         # Load configuration
         config = {
-            'cohere_api_key': os.getenv('COHERE_API_KEY'),
+            'openai_api_key': os.getenv('OPENROUTER_API_KEY') or os.getenv('OPEN_API_KEY'),
             'qdrant_url': os.getenv('QDRANT_URL'),
             'qdrant_api_key': os.getenv('QDRANT_API_KEY'),
             'qdrant_collection_name': os.getenv('QDRANT_COLLECTION_NAME', 'document_embeddings'),
         }
 
         # Validate required environment variables
-        required_vars = ['cohere_api_key', 'qdrant_url', 'qdrant_api_key']
+        required_vars = ['openai_api_key', 'qdrant_url', 'qdrant_api_key']
         missing_vars = [var for var in required_vars if not config[var]]
 
         if missing_vars:
@@ -340,8 +415,12 @@ def retrieve_content_wrapper(query: str, top_k: int = 5, threshold: float = 0.5)
                 "search_performed": False
             }
 
-        # Create embedder and connector
-        embedder = QueryEmbedder(config['cohere_api_key'])
+        # Create embedder and connector with retry configuration
+        embedder = QueryEmbedder(
+            config['openai_api_key'],
+            max_retries=3,  # Number of retry attempts
+            base_delay=1.0  # Base delay in seconds for exponential backoff
+        )
         connector = QdrantConnector(config)
 
         # Validate connection
